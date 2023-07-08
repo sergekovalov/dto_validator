@@ -1,0 +1,2 @@
+class JsonValidator < HashValidator
+end
