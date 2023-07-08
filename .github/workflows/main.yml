@@ -3,16 +3,16 @@ name: Ruby
 on:
   push:
     branches:
-      - master
+      - main
 
   pull_request:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Ruby ${{ matrix.ruby }}
+    name: Ruby 3.0.0
     strategy:
-      matrix:
+      dto_validator:
         ruby:
           - '3.0.0'
 
@@ -21,7 +21,7 @@ jobs:
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: ${{ matrix.ruby }}
+        ruby-version: 3.0.0
         bundler-cache: true
     - name: Run the default task
       run: bundle exec rake
