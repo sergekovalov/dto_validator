@@ -179,4 +179,34 @@ RSpec.describe :string do
       expect(errors[0]).to eq("some_str_with_not_empty_strip_validation should not be empty")
     end
   end
+
+  describe :regex do
+    class StringRegexDto < DtoValidator::Base
+      validates :some_str_with_regex_validation, string: { regex: /^\d+$/ }
+    end
+
+    it "validates not empty string" do
+      payload = {
+        some_str_with_regex_validation: '123'
+      }
+      
+      dto = StringRegexDto.new payload
+      res, errors = dto.validate
+
+      expect(res).to eq(true)
+      expect(errors).to eq(nil)
+    end
+    
+    it "throws error" do
+      payload = {
+        some_str_with_regex_validation: 'asd'
+      }
+      
+      dto = StringRegexDto.new payload
+      res, errors = dto.validate
+      
+      expect(res).to eq(false)
+      expect(errors[0]).to eq("some_str_with_regex_validation does not match")
+    end
+  end
 end
